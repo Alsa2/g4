@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Main Page</h1>
+    <p>Hi, {{ username }}!</p>
+    <p>What would you like to do?</p>
+    <ul>
+        <li><a href="/add">Add a new post</a></li>
+        <li><a href="/posts">View all posts</a></li>
+        <li><a href="/test">TEST</a></li>
+        <li><a href="/users">Get Users</a></li>
+        <li><a href="/logout">Log out</a></li>
+    </ul>
+    <h2>Users</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.password }}</td>
+        </tr>
+        {% endfor %}
+    </table>
