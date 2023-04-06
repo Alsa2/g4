@@ -5,6 +5,7 @@ from db_schema import Base, User, Post
 from passlib.hash import pbkdf2_sha512
 # add unix epoch time
 import datetime
+import random
 
 def create_db():
     engine = create_engine('sqlite:///database.db')
@@ -44,8 +45,129 @@ class DatabaseHandler():
         self.session.add(post)
         self.session.commit()
 
-    def get_posts(self):
-        return self.session.query(Post).all()
+    def get_tags(self, sorting, time):#sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
+        # Check for invalid values
+        if sorting not in ["new", "random", "top"]:
+            raise ValueError(f"Invalid value for sorting argument. Got {sorting}")
+        if time not in ["all", "hour", "day", "week", "month", "year"]:
+            raise ValueError(f"Invalid value for time argument. Got {time}")
+        if sorting == "top":
+            if time == "all":
+                posts = self.session.query(Post).order_by(Post.rating.desc()).all()
+            elif time == "hour":
+                posts = self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(hours=1)).order_by(Post.rating.desc()).all()
+            elif time == "day":
+                posts = self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=1)).order_by(Post.rating.desc()).all()
+            elif time == "week":
+                posts = self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(weeks=1)).order_by(Post.rating.desc()).all()
+            elif time == "month":
+                posts = self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=30)).order_by(Post.rating.desc()).all()
+            elif time == "year":
+                posts = self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=365)).order_by(Post.rating.desc()).all()
+
+            tags = []
+            for post in posts:
+                #split tags by comma
+                tags += post.tags.split(",")
+            #get all posts and count occurences of each tag
+            posts = self.session.query(Post).all()
+            tag_count = {}
+            for post in posts:
+                for tag in post.tags.split(","):
+                    if tag in tag_count:
+                        tag_count[tag] += 1
+                    else:
+                        tag_count[tag] = 1
+
+            #sort by count
+            tag_count = sorted(tag_count.items(), key=lambda x: x[1], reverse=True)
+            #keep first 10 tags
+            tag_count = tag_count[:8]
+            return tag_count
+
+        elif sorting == "new":
+            #take ten posts and get their tags
+            posts = self.session.query(Post).order_by(Post.datetime.desc()).limit(10).all()
+            tags = []
+            for post in posts:
+                #split tags by comma
+                tags += post.tags.split(",")
+            #remove duplicates
+            tags = list(set(tags))
+            #keep first 10 tags
+            tags = tags[:8]
+            #get all posts and count occurences of each tag
+            posts = self.session.query(Post).all()
+            tag_count = {}
+            for post in posts:
+                for tag in post.tags.split(","):
+                    if tag in tag_count:
+                        tag_count[tag] += 1
+                    else:
+                        tag_count[tag] = 1
+
+            #sort by the most recent
+            tag_count = sorted(tag_count.items(), key=lambda x: x[1], reverse=True)
+            return tag_count
+
+        elif sorting == "random":
+            #take all the post id and select 10 random ones
+            posts = self.session.query(Post).all()
+            post_ids = []
+            for post in posts:
+                post_ids.append(post.id)
+            random.shuffle(post_ids)
+            post_ids = post_ids[:8]
+            #get all posts and count occurences of each tag
+            posts = self.session.query(Post).all()
+            tag_count = {}
+            for post in posts:
+                for tag in post.tags.split(","):
+                    if tag in tag_count:
+                        tag_count[tag] += 1
+                    else:
+                        tag_count[tag] = 1
+            
+            #sort by count
+            tag_count = sorted(tag_count.items(), key=lambda x: x[1], reverse=True)
+            #keep first 10 tags
+            tag_count = tag_count[:8]
+            return tag_count
+
+            
+
+
+    def get_posts(self, sorting, time):#sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
+        # Check for invalid values
+        if sorting not in ["new", "random", "top"]:
+            raise ValueError(f"Invalid value for sorting argument. Got {sorting}")
+        if time not in ["all", "hour", "day", "week", "month", "year"]:
+            raise ValueError(f"Invalid value for time argument. Got {time}")
+        if sorting == "top":
+            if time == "all":
+                posts = self.session.query(Post).order_by(Post.rating.desc()).all()
+            elif time == "hour":
+                posts =  self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(hours=1)).order_by(Post.rating.desc()).all()
+            elif time == "day":
+                posts =  self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=1)).order_by(Post.rating.desc()).all()
+            elif time == "week":
+                posts =  self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(weeks=1)).order_by(Post.rating.desc()).all()
+            elif time == "month":
+                posts =  self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=30)).order_by(Post.rating.desc()).all()
+            elif time == "year":
+                posts =  self.session.query(Post).filter(Post.datetime > datetime.datetime.now() - datetime.timedelta(days=365)).order_by(Post.rating.desc()).all()
+            return posts[:10]
+        elif sorting == "new":
+            posts = self.session.query(Post).order_by(Post.datetime.desc()).all()
+            return posts[:10]
+            
+        elif sorting == "random":
+            #get all posts
+            posts = self.session.query(Post).all()
+            #shuffle them
+            random.shuffle(posts)
+            #return first 10
+            return posts[:10]
 
     def get_posts_by_user_id(self, post_id):
         return self.session.query(Post).filter_by(id=post_id).all()
@@ -91,3 +213,6 @@ class DatabaseHandler():
 
 if __name__ == '__main__':
     create_db()
+    db = DatabaseHandler()
+    print(db.get_tags("random"))
+    db.close()

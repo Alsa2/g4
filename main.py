@@ -53,20 +53,50 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash(('You need to login first', 'danger'))
-            return render_template('login.html', )
+            return redirect(url_for('login'))
 
     return wrapper
 
 @app.route('/')
 @login_required
 def index():
-    #decoding token
+    db = DatabaseHandler()
+
+    #decoding and checking token
     token = session['token']
     username = get_username_from_token(token)
     if username is None:
         return redirect(url_for('login'))
-    db = DatabaseHandler()
-    return render_template('index.html', username=username)
+
+    # Getting the tags filters
+    post_sort = request.args.get('post_category')
+    if post_sort is None:
+        post_sort = 'top'
+    post_time = request.args.get('post_time')
+    if post_time is None:
+        post_time = 'all'
+
+    # Getting the posts
+    
+    print(post_sort, post_time)
+    tags = db.get_tags(post_sort, post_time)
+
+    table_sort = request.args.get('table_category')
+    if table_sort is None:
+        table_sort = 'top'
+    table_time = request.args.get('table_time')
+    if table_time is None:
+        table_time = 'all'
+
+    print(table_sort, table_time)
+
+    posts = db.get_posts(table_sort, table_time)
+
+    db.close()
+
+
+
+    return render_template('index.html', username=username, tags=tags, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -96,15 +126,16 @@ def register():
     if password != password_confirmation:
         msg =('Passwords do not match', 'danger')
         flash(msg)
-        return redirect(url_for('register'))
+        return redirect(url_for('login'))
     db = DatabaseHandler()
     if db.get_user_by_username(username) is None:
         db.add_user(username, password)
         db.close()
+        flash(('User created successfully', 'success'))
         return redirect('/login')
     else:
-        flash('Username already exists')
-        return redirect(url_for('register'))
+        flash(('Username already exists', 'danger'))
+        return redirect(url_for('login'))
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
@@ -114,10 +145,18 @@ def add():
         title = request.form['title']
         tags = request.form['tags']
         content = request.form['content']
-        username = get_username_from_token(session['token'])
+        try:
+            token = session['token']
+        except:
+            return redirect(url_for('login'))
+        username = get_username_from_token(token)
+        if username is None:
+            flash(('You need to login first', 'danger'))
+            return redirect(url_for('login'))
         db = DatabaseHandler()
-        db.add_post(title, tags, content, username)
+        db.add_post(title, content, tags, username)
         db.close()
+        flash(('Post added successfully', 'success'))
         return redirect('/')
 
 @app.route('/user/<username>', methods=['GET', 'POST'])

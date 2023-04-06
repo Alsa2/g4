@@ -14,7 +14,6 @@ class User(Base):
     role = Column(String) # admin, user
     posts = relationship("Post", backref="user")
 
-# on delete cascade
 class Post(Base):
     __tablename__ = 'post'
     id = Column(Integer, primary_key=True)
