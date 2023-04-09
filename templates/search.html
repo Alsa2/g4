@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="col overflow-auto h-100" onload="PostsetDropdownValuesFromUrlParams()">
+    <div class="bg-light border rounded-3 p-3">
+        <h2>Search results for: {{ search }}</h2>
+        <p>If the result is not what you expected, try to be more specific. Especially use the exact same words</p>
+    </div>
+    <div class="bg-light border rounded-3 p-3">
+        <form method="get">
+            <select class="dropdown" id="Search_first-dropdown" onchange="Search_populateSecondDropdown()">
+                <option value="top">Top</option>
+                <option value="new">New</option>
+                <option value="random">Random</option>
+            </select>
+            
+            <select id="Search_second-dropdown" onchange="Search_redirectforsecondDropdown()">
+                <option value="all">All time</option>
+                <option value="hour">Last Hour</option>
+                <option value="day">Last Day</option>
+                <option value="week">Last Week</option>
+                <option value="month">Last Month</option>
+                <option value="year">Last Year</option>
+
+            </select>
+        </form>
+    </div>
+</main>
+{% endblock %}

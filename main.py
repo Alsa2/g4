@@ -159,6 +159,11 @@ def add():
         flash(('Post added successfully', 'success'))
         return redirect('/')
 
+@app.route('/search', methods=['GET'])
+def search():
+    search = request.args.get('search')
+    return render_template('search.html', search=search)
+
 @app.route('/user/<username>', methods=['GET', 'POST'])
 def user(username):
     db = DatabaseHandler()

@@ -214,5 +214,5 @@ class DatabaseHandler():
 if __name__ == '__main__':
     create_db()
     db = DatabaseHandler()
-    print(db.get_tags("random"))
+    print(db.get_tags("random", "all"))
     db.close()
