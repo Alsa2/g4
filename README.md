@@ -1,5 +1,8 @@
-# g4
-My little darkweb chat group
+# Unit 4 Project: Anonymous Forum Website
 
-Palette
-https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c
+![DALLE](/assets/documentation/DALL·E.png)
+<i> draw a low poly art of a person working on a computer on the edge of a building with sky scrapper in the night</i>
+
+# Criteria A: Planning
+
+## Problem definition
