@@ -22,5 +22,5 @@ class Post(Base):
     tags = Column(String)
     datetime = Column(String)
     rating = Column(Integer)
-    file_names = Column(String)# file names are separated by commas
+    file_names = Column(String)
     user_id = Column(Integer, ForeignKey('user.id', ondelete='CASCADE'))

@@ -9,10 +9,12 @@
         <h4>Content:</h4>
         <p>{{ post.content }}</p>
         <hr/>
-        <h5>Files:</h5>
-        {% for file in post.file_names %}
-        <a href="/file/{{ file.id }}" class="">{{ file.filename }}</a>
-        {% endfor %}
+        {% if post.file_names %}
+        <h5>File:</h5>
+        <p><a href="/file/{{post.id}}">{{post.file_names}}</a>
+        {% endif %}
+        #make this part 95 percent and add a side bar for rating and tags
+
         
     </div>
 

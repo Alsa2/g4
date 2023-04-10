@@ -215,6 +215,7 @@ def post(post_id):
     db = DatabaseHandler()
     post = db.get_post_by_id(post_id)
     username = post.user.username
+    print(post.file_names)
     db.close()
     return render_template('post.html', post=post, username = username)
 
