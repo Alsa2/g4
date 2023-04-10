@@ -162,12 +162,34 @@ def add():
 @app.route('/search', methods=['GET'])
 def search():
     search = request.args.get('search')
-    """
+    if search is None:
+        search = ''
+        print("Searched nothing")
+
+    sort = request.args.get('sort')
+    if sort is None:
+        sort = 'top'
+    time = request.args.get('time')
+    if time is None:
+        time = 'all'
+
+    quantity = request.args.get('quantity')
+    if quantity is None:
+        quantity = 20
+    #check if quantity is a number
+    try:
+        quantity = int(quantity)
+    except:
+        quantity = 20
+        
+
+    
     db = DatabaseHandler()
-    posts = db.search_posts(search)
+    posts = db.search_posts(search, sort, time, quantity)
     db.close()
-    """
-    posts = []
+    print("SEARCH: ", search)
+    for post in posts:
+        print(post)
     return render_template('search.html', search=search, posts=posts)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])

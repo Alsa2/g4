@@ -23,6 +23,13 @@
                 <option value="year">Last Year</option>
 
             </select>
+            <select class="dropdown" id="Search_quantity-dropdown" onchange="Set_Search_quantity_limit()">
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="all">All</option>
+            </select>
+
         </form>
         <span></span>
         <table class="table">
@@ -31,8 +38,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Tags</th>
-                <th scope="col">Datetime</th>
                 <th scope="col">Content</th>
+                <th scope="col">Datetime</th>
 
                 </tr>
             </thead>
@@ -43,8 +50,11 @@
                     <th scope="row">{{ post.id }}</th>
                     <td>{{ post.title }}</td>
                     <td>{{ post.tags }}</td>
-                    <td>{{ post.datetime }}</td>
                     <td>{{ post.content }}</td>
+                    <td>{{ post.datetime }}</td>
+                    <td
+                    <button type="button" class="btn" style="background-color: #003566;color: white;" onclick="window.location.href='/post/{{post.id}}'">View</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

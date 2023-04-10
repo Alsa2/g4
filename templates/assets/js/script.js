@@ -284,14 +284,23 @@ function Search_redirectforsecondDropdown() {
   window.location.href = "/search?search_category=top&search_time=" + timeValue+"&search="+currentSearch;
 }
 
+function Set_Search_quantity_limit() {
+  const urlParams = new URLSearchParams(window.location.search);
+  var currentSearch = urlParams.get('search');
+  var quantity = document.getElementById("Search_quantity-dropdown").value;
+  window.location.href = "/search?search_category=top&search_time=all&search="+currentSearch+"&quantity="+quantity;
+}
+
 function SearchsetDropdownValuesFromUrlParams() {
   console.log("SearchsetDropdownValuesFromUrlParams");
   const urlParams = new URLSearchParams(window.location.search);
   const post_category = urlParams.get('search_category');
   const post_time = urlParams.get('search_time');
+  const post_quantity = urlParams.get('quantity');
 
   const firstDropdown = document.getElementById('Search_first-dropdown');
   const secondDropdown = document.getElementById('Search_second-dropdown');
+  const quantityDropdown = document.getElementById('Search_quantity-dropdown');
 
   // Set the selected value of the first dropdown
   if (post_category === 'top') {
@@ -321,4 +330,7 @@ function SearchsetDropdownValuesFromUrlParams() {
   } else if (post_time === 'year') {
     secondDropdown.value = 'year';
   }
+
+  // Set the selected value of the quantity dropdown
+  quantityDropdown.value = post_quantity;
 }
