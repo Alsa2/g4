@@ -162,11 +162,12 @@ def add():
 @app.route('/search', methods=['GET'])
 def search():
     search = request.args.get('search')
-
+    """
     db = DatabaseHandler()
     posts = db.search_posts(search)
     db.close()
-
+    """
+    posts = []
     return render_template('search.html', search=search, posts=posts)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])

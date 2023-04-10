@@ -25,9 +25,34 @@
       background-color: #F8F8FF;
     }
   </style>
+  <script>
+    function executeScriptWithTryCatchBlocks() {
+      console.log('Executing script with try catch blocks');
+      try {
+        PostsetDropdownValuesFromUrlParams();
+      } catch (e) {
+        console.error('Not an error: An error occurred in PostsetDropdownValuesFromUrlParams:', e);
+      }
+    
+      try {
+        TablesetDropdownValuesFromUrlParams();
+      } catch (e) {
+        console.error('Not an error: An error occurred in TablesetDropdownValuesFromUrlParams:', e);
+      }
+    
+      try {
+        SearchsetDropdownValuesFromUrlParams();
+      } catch (e) {
+        console.error('Not an error: An error occurred in SearchsetDropdownValuesFromUrlParams:', e);
+      }
+    }
+    </script>
+    
+  
+
   
 </head>
-<body onload="PostsetDropdownValuesFromUrlParams();TablesetDropdownValuesFromUrlParams();SearchsetDropdownValuesFromUrlParams()">
+<body onload="executeScriptWithTryCatchBlocks()">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}

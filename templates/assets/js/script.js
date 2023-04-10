@@ -219,6 +219,8 @@ function TablesetDropdownValuesFromUrlParams() {
 
 
 function Search_populateSecondDropdown() {
+  const urlParams = new URLSearchParams(window.location.search);
+  var currentSearch = urlParams.get('search');
   var firstDropdown = document.getElementById("Search_first-dropdown");
   var secondDropdown = document.getElementById("Search_second-dropdown");
 
@@ -263,10 +265,10 @@ function Search_populateSecondDropdown() {
 
   // Hide/show the second dropdown based on the selected value
   if (selectedValue === "new") {
-    window.location.href = "/search?search_category=new";
+    window.location.href = "/search?search_category=new&search="+currentSearch;
     secondDropdown.style.display = "none";
   } else if (selectedValue === "random") {
-    window.location.href = "/search?search_category=random";
+    window.location.href = "/search?search_category=random&search="+currentSearch;
     secondDropdown.style.display = "none";
   } else {
     secondDropdown.style.display = "block";
@@ -275,9 +277,11 @@ function Search_populateSecondDropdown() {
   
   // Redirect to the appropriate URL when an option is selected from the second dropdown
 function Search_redirectforsecondDropdown() {
+  const urlParams = new URLSearchParams(window.location.search);
+  var currentSearch = urlParams.get('search');
   var secondDropdown = document.getElementById("Search_second-dropdown");
   var timeValue = secondDropdown.value;
-  window.location.href = "/search?search_category=top&search_time=" + timeValue;
+  window.location.href = "/search?search_category=top&search_time=" + timeValue+"&search="+currentSearch;
 }
 
 function SearchsetDropdownValuesFromUrlParams() {
