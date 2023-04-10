@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="col overflow-auto h-100">
+    <div class="bg-light border rounded-3 p-3">
+        <h2>Post Title: {{ post.title }}</h2>
+        <p>by <a href="/user/{{ username }}" class="">{{ username }}</a></p>
+        <hr/>
+        <h4>Content:</h4>
+        <p>{{ post.content }}</p>
+        <hr/>
+        <h5>Files:</h5>
+        {% for file in files %}
+        <a href="/file/{{ file.id }}" class="">{{ file.filename }}</a>
+        {% endfor %}
+        
+    </div>
+
+</main>
+{% endblock %}

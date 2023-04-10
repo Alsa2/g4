@@ -134,7 +134,8 @@ class DatabaseHandler():
             tag_count = tag_count[:8]
             return tag_count
 
-            
+    def get_post_by_id(self, post_id):
+        return self.session.query(Post).filter_by(id=post_id).first()
 
 
     def get_posts(self, sorting, time):#sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
@@ -184,7 +185,7 @@ class DatabaseHandler():
     def get_users(self):
         return self.session.query(User).all()
 
-    def search_posts(self, query, sorting, time, quantity): #the query can be a title, tag, or content. sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
+    def search_posts(self, query, sorting, time, quantity): #the query can be a title, tag, post id or content. sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
         # Check for invalid values
         if sorting not in ["new", "random", "top"]:
             raise ValueError(f"Invalid value for sorting argument. Got {sorting}")
@@ -192,24 +193,25 @@ class DatabaseHandler():
             raise ValueError(f"Invalid value for time argument. Got {time}")
         if sorting == "top":
             if time == "all":
-                posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query))).order_by(Post.rating.desc()).all()
+                posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query))).order_by(Post.rating.desc()).all()
             elif time == "hour":
-                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(hours=1)).order_by(Post.rating.desc()).all()
+                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(hours=1)).order_by(Post.rating.desc()).all()
             elif time == "day":
-                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=1)).order_by(Post.rating.desc()).all()
+                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=1)).order_by(Post.rating.desc()).all()
             elif time == "week":
-                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(weeks=1)).order_by(Post.rating.desc()).all()
+                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(weeks=1)).order_by(Post.rating.desc()).all()
             elif time == "month":
-                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=30)).order_by(Post.rating.desc()).all()
+                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=30)).order_by(Post.rating.desc()).all()
             elif time == "year":
-                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=365)).order_by(Post.rating.desc()).all()
+                posts =  self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query)), Post.datetime > datetime.datetime.now() - datetime.timedelta(days=365)).order_by(Post.rating.desc()).all()
             return posts[:quantity]
+
         elif sorting == "new":
-            posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query))).order_by(Post.datetime.desc()).all()
+            posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query))).order_by(Post.datetime.desc()).all()
             return posts[:quantity]
         elif sorting == "random":
             #get all posts
-            posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query))).all()
+            posts = self.session.query(Post).filter(or_(Post.title.contains(query), Post.tags.contains(query), Post.content.contains(query), Post.id.is_(query))).all()
             #shuffle them
             random.shuffle(posts)
             #return first 10

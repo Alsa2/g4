@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from werkzeug.utils import secure_filename
 import os
 from db_handler import DatabaseHandler
 import dotenv
@@ -153,6 +154,10 @@ def add():
         if username is None:
             flash(('You need to login first', 'danger'))
             return redirect(url_for('login'))
+        file = request.files['file']
+        if file.filename != '':
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         db = DatabaseHandler()
         db.add_post(title, content, tags, username)
         db.close()
@@ -181,7 +186,7 @@ def search():
         quantity = int(quantity)
     except:
         quantity = 20
-        
+
 
     
     db = DatabaseHandler()
@@ -200,12 +205,19 @@ def user(username):
     db.close()
     return render_template('user.html', posts=posts, username=username)
 
+@app.route('/post/<post_id>')
+def post(post_id):
+    db = DatabaseHandler()
+    post = db.get_post_by_id(post_id)
+    username = post.user.username
+    db.close()
+    return render_template('post.html', post=post, username = username)
+
 @app.route('/users')
 def users():
     db = DatabaseHandler()
     users = db.get_users()
     db.close()
-    print(users)
     return render_template('users.html', users=users)
 
 @app.route('/logout')
