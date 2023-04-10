@@ -10,7 +10,7 @@
         <p>{{ post.content }}</p>
         <hr/>
         <h5>Files:</h5>
-        {% for file in files %}
+        {% for file in post.file_names %}
         <a href="/file/{{ file.id }}" class="">{{ file.filename }}</a>
         {% endfor %}
         

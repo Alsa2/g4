@@ -9,7 +9,7 @@
         <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; gap: 1%;min-height: 200px;">
             <div class="bg-light border rounded-3 p-3" style="flex: 0 0 74%;">
                 <h3>New Post</h3>
-                <form method="POST" action="/add">
+                <form method="POST" action="/add" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
                         <input type="text" id="title" name="title" class="form-control" id="floatingInput" placeholder="Example" required>
                         <label for="floatingInput">Title</label>
@@ -23,8 +23,8 @@
                         <textarea class="form-control" id="content" name="content" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="files" class="form-label">Files:</label>
-                        <input type="file" class="form-control" id="files" name="files">
+                        <label for="file" class="form-label">Files:</label>
+                        <input type="file" class="form-control" id="file" name="file">
                     </div>
                     <button type="submit" class="btn custom-primary-bg w-100">Post</button>
                     </form>

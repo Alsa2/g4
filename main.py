@@ -8,9 +8,11 @@ from jose import jwt
 from datetime import datetime
 
 STATIC_FOLDER = 'templates/assets'
+UPLOAD_FOLDER = 'files'
 
 
 app=Flask(__name__, static_folder=STATIC_FOLDER) #initiating flask object
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 dotenv.load_dotenv()
 token_encryption_key = os.getenv('TOKEN_ENCRYPTION_KEY')
@@ -155,11 +157,14 @@ def add():
             flash(('You need to login first', 'danger'))
             return redirect(url_for('login'))
         file = request.files['file']
+        filename = ''
         if file.filename != '':
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         db = DatabaseHandler()
-        db.add_post(title, content, tags, username)
+
+        #def add_post(self, title, content, tags, username, filename):
+        db.add_post(title, content, tags, username, filename)
         db.close()
         flash(('Post added successfully', 'success'))
         return redirect('/')
