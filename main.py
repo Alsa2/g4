@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 from db_handler import DatabaseHandler
@@ -147,6 +147,7 @@ def add():
     else:
         title = request.form['title']
         tags = request.form['tags']
+        tags = tags.replace(' ', '')
         content = request.form['content']
         try:
             token = session['token']
@@ -213,11 +214,32 @@ def user(username):
 @app.route('/post/<post_id>')
 def post(post_id):
     db = DatabaseHandler()
-    post = db.get_post_by_id(post_id)
+    post, tags = db.get_post_by_id(post_id)
     username = post.user.username
-    print(post.file_names)
+    #checks if user role is admin or post owner
+    role = db.get_user_by_username(username).role
     db.close()
-    return render_template('post.html', post=post, username = username)
+    try:
+        token = session['token']
+    except:
+        return redirect(url_for('login'))
+    username = get_username_from_token(token)
+    if username is None:
+        return redirect(url_for('login'))
+    #checks if user role is admin or post owner
+    role = db.get_user_by_username(username).role
+    if username == post.user.username or role == 'admin':
+        return render_template('post.html', post=post, username = username, tags=tags, admin=True)
+    else:
+        return render_template('post.html', post=post, username = username, tags=tags)
+
+@app.route('/file/<post_id>')
+def file(post_id):
+    db = DatabaseHandler()
+    post = db.get_post_by_id(post_id)
+    print(post[0].file_names)
+    db.close()
+    return send_from_directory(app.config['UPLOAD_FOLDER'], post[0].file_names)
 
 @app.route('/users')
 def users():
@@ -226,14 +248,45 @@ def users():
     db.close()
     return render_template('users.html', users=users)
 
+@app.route('/admin/delete/<post_id>')
+def delete_post(post_id):
+    try:
+        token = session['token']
+    except:
+        return redirect(url_for('login'))
+    username = get_username_from_token(token)
+    if username is None:
+        return redirect(url_for('login'))
+    db = DatabaseHandler()
+    role = db.get_user_by_username(username).role
+    if role != 'admin':
+        return redirect(url_for('login'))
+    db.delete_post(post_id)
+    db.close()
+    return redirect('/')
+
 @app.route('/logout')
 def logout():
     session.pop('token', None)
     return redirect(url_for('login'))
 
-@app.route('/test')
-def test():
-    render_template('test.html')
+@app.route('/vote/<post_id>')
+def upvote(post_id):
+    try:
+        token = session['token']
+    except:
+        return redirect(url_for('login'))
+    username = get_username_from_token(token)
+    if username is None:
+        return redirect(url_for('login'))
+    db = DatabaseHandler()
+    task = request.args.get('task')
+    db.vote_post(post_id, task)
+    print(task)
+    db.close()
+    return redirect('/post/' + post_id)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=80)

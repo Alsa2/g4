@@ -83,6 +83,7 @@ class DatabaseHandler():
             tag_count = sorted(tag_count.items(), key=lambda x: x[1], reverse=True)
             #keep first 10 tags
             tag_count = tag_count[:8]
+            #remove the space at the end
             return tag_count
 
         elif sorting == "new":
@@ -134,9 +135,21 @@ class DatabaseHandler():
             tag_count = tag_count[:8]
             return tag_count
 
-    def get_post_by_id(self, post_id):
-        return self.session.query(Post).filter_by(id=post_id).first()
+    def get_post_by_id(self, post_id):# return the tags separated by comma
+        post = self.session.query(Post).filter_by(id=post_id).first()
+        #split tags by comma
+        tags = post.tags.split(",")
+        return post, tags
 
+    def vote_post(self, post_id, task):
+        if task == "upvote":
+            post = self.session.query(Post).filter_by(id=post_id).first()
+            post.rating += 1
+            self.session.commit()
+        elif task == "downvote":
+            post = self.session.query(Post).filter_by(id=post_id).first()
+            post.rating -= 1
+            self.session.commit()
 
     def get_posts(self, sorting, time):#sort can be by "new", "random", "top". When its "top" time can be "all", "hour", "day", "week", "month", "year"
         # Check for invalid values

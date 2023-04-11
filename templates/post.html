@@ -2,20 +2,45 @@
 
 {% block content %}
 <main class="col overflow-auto h-100">
-    <div class="bg-light border rounded-3 p-3">
-        <h2>Post Title: {{ post.title }}</h2>
-        <p>by <a href="/user/{{ username }}" class="">{{ username }}</a></p>
-        <hr/>
-        <h4>Content:</h4>
-        <p>{{ post.content }}</p>
-        <hr/>
-        {% if post.file_names %}
-        <h5>File:</h5>
-        <p><a href="/file/{{post.id}}">{{post.file_names}}</a>
-        {% endif %}
-        #make this part 95 percent and add a side bar for rating and tags
-
-        
+    <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; gap: 1%;min-height: 200px;">
+        <div class="bg-light border rounded-3 p-3" style="flex: 0 0 74%;">
+            <h2>Post Title: {{ post.title }}</h2>
+            <p>by <a href="/user/{{ username }}" class="">{{ username }}</a></p>
+            <hr/>
+            <h4>Content:</h4>
+            <p>{{ post.content }}</p>
+            {% if post.file_names %}
+            <hr/>
+            <h5>File:</h5>
+            <p><a href="/file/{{post.id}}">{{post.file_names}}</a>
+            {% endif %}
+        </div>
+        <div class="row" style="gap: 2%;">
+            <div class="col-md-6 w-100" style="height: 49%;">
+              <div class="bg-light border rounded-3 p-3 h-100">
+                <h4>Tags:</h4>
+                {% for tag in tags %}
+                <p><a href="search?search={{tag}}" class="">{{ tag }}</a></p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="col-md-6 w-100" style="height: 49%;">
+              <div class="bg-light border rounded-3 p-3 h-100">
+                <h4>Rating:</h4>
+                <p>{{ post.rating }} points.</p>
+                <h4>Vote</h4>
+                <div class="btn-group custom-primary-bg" role="group" aria-label="Basic example">
+                    <a href="/vote/{{post.id}}?task=upvote"><button type="button" class="btn btn-secondary custom-primary-bg"><i class="bi bi-hand-thumbs-up"></i>+</button></a>
+                    <a href="/vote/{{post.id}}?task=downvote"><button type="button" class="btn btn-secondary custom-primary-bg"><i class="bi bi-hand-thumbs-down"></i>+</button></a>
+                </div>
+                {% if admin %}
+                <h4>Admin</h4>
+                <div class="btn-group custom-primary-bg" role="group" aria-label="Basic example">
+                    <a href="/admin/delete/{{post.id}}"><button type="button" class="btn btn-secondary custom-primary-bg"><i class="bi bi-trash"></i></button></a>
+              </div>
+                {% endif %}
+            </div>
+          </div>
     </div>
 
 </main>

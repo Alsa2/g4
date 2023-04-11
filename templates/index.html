@@ -49,7 +49,7 @@
                     </select>
                 </form>
                 {% for tag in tags %}
-                <p><a href="/tag/{{tag[0] }}" class="">{{ tag[0] }}</a>  <span class="badge bg-primary">{{ tag[1] }}</span></p>
+                <p><a href="search?search={{tag[0]}}" class="">{{ tag[0] }}</a>  <span class="badge bg-primary">{{ tag[1] }}</span></p>
                 {% endfor %}
             </div>
         </div>
@@ -80,8 +80,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Title</th>
                             <th scope="col">Tags</th>
-                            <th scope="col">Datetime</th>
                             <th scope="col">Content</th>
+                            <th scope="col">Datetime</th>
     
                             </tr>
                         </thead>
@@ -92,8 +92,8 @@
                                 <th scope="row">{{ post.id }}</th>
                                 <td>{{ post.title }}</td>
                                 <td>{{ post.tags }}</td>
-                                <td>{{ post.datetime }}</td>
                                 <td>{{ post.content }}</td>
+                                <td>{{ post.datetime }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
