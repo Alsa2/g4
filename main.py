@@ -263,6 +263,7 @@ def delete_post(post_id):
         return redirect(url_for('login'))
     db.delete_post(post_id)
     db.close()
+    flash(('Post deleted successfully', 'success'))
     return redirect('/')
 
 @app.route('/logout')
