@@ -26,7 +26,7 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## System Diagram
 
-![System Diagram](/assets/documentation/SD.png)
+![System Diagram](/assets/documentation/SystemDiagram.png)
 
 ## Data Storage
 
