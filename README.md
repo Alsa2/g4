@@ -24,6 +24,16 @@ Considering the clients requirements there is a strong need for a platform where
 
 # Criteria B: Design
 
+## System Diagram
+
+![System Diagram](/assets/documentation/SystemDiagram.png)
+
+## Data Storage
+
+![Er](/assets/documentation/ER.png)
+
+
+
 
 [^1]: https://stackshare.io/stackups/flask-vs-nginx
 [^2]: https://www.infoworld.com/article/3331923/why-you-should-use-sqlite.html
