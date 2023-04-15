@@ -28,9 +28,29 @@ Considering the clients requirements there is a strong need for a platform where
 
 ![System Diagram](/assets/documentation/SystemDiagram.png)
 
+**Fig.1** *System diagram of the Website*
+
 ## Data Storage
 
 ![Er](/assets/documentation/ER.png)
+
+**Fig.2** *ER diagram of the Website
+
+## Example of Data Entries
+
+![Er](/assets/documentation/data_entry_user_table.png)
+
+**Fig.3** *Example of data entry in the User table*
+
+![Er](/assets/documentation/data_entry_post_table.png)
+
+**Fig.4** *Example of data entry in the Post table*
+
+## UML Diagram
+
+![Er](/assets/documentation/UML.png)
+
+**Fig.5** *UML Diagram of the website*
 
 
 
