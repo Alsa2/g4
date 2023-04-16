@@ -75,13 +75,13 @@ Considering the clients requirements there is a strong need for a platform where
 
 ### Token Management
 
-![Flowchart_1](/assets/documentation/Flowchart_1.png)
+![Flowchart_1](/assets/documentation/flowchart_1.png)
 
 **Fig.7** *Here is a flowchart describing the process logging in and creating the token for the user. Without and encrypted token system "not nice people" could just access your website, create and account, login, and change the user_id until they get admin permission. Not good*
 
 ### Search Sorting System
 
-![Flowchart_2](/assets/documentation/Flowchart_2.png)
+![Flowchart_2](/assets/documentation/flowchart_2.png)
 
 **Fig.8** *Here is a flowchart describing the process of searching and sorting the posts. The user can search by title, tag author, or content. Also it can be sorted by popularity (all times, in the last month, last day...), by the newest and randomly.*
 
