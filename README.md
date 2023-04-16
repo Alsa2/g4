@@ -1,7 +1,10 @@
 # Unit 4 Project: Anonymous Forum Website
 
 ![DALLE](/assets/documentation/DALL·E.png)
-<i> draw a low poly art of a person working on a computer on the edge of a building with sky scrapper in the night</i>
+<i>  low poly art of a person working on a computer on the edge of a building with sky scrapper in the night</i> by [DALL·E 2](https://openai.com/product/dall-e-2)
+
+Link:
+2dwfg6zxrbkyu3f27z76n6widmc4sp3zpt7olzzozqzwchgqnt5j7nad.onion
 
 # Criteria A: Planning
 
@@ -38,19 +41,60 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Example of Data Entries
 
-![Er](/assets/documentation/data_entry_user_table.png)
+![Data_entry_user](/assets/documentation/data_entry_user_table.png)
 
 **Fig.3** *Example of data entry in the User table*
 
-![Er](/assets/documentation/data_entry_post_table.png)
+![Data_entry_post](/assets/documentation/data_entry_post_table.png)
 
 **Fig.4** *Example of data entry in the Post table*
 
 ## UML Diagram
 
-![Er](/assets/documentation/UML.png)
+![UML](/assets/documentation/UML.png)
 
 **Fig.5** *UML Diagram of the website*
+
+## Wireframe
+
+![WireFrame](/assets/documentation/Wireframe.png)
+
+**Fig.6** *UML Diagram of the website*
+
+## Records of Tasks
+
+| Task No | Planned Action                       | Planned Outcome                                              | Time estimate | Target completion date | Criterion |
+| ------- | ------------------------------------ | ------------------------------------------------------------ | ------------- | ---------------------- | --------- |
+|         | Planning: First Meeting with client  | Start collecting the context of the problem and research on current solutions | 5min          |                        | A         |
+|         | Planning: Second Meeting with client | Defining problem, proposed solution, tools needed,  and the clients requirements |               |                        |           |
+|         |                                      |                                                              |               |                        |           |
+|         |                                      |                                                              |               |                        |           |
+|         |                                      |                                                              |               |                        |           |
+
+## Flowcharts
+
+### Token Management
+
+![Flowchart_1](/assets/documentation/Flowchart_1.png)
+
+**Fig.7** *Here is a flowchart describing the process logging in and creating the token for the user. Without and encrypted token system "not nice people" could just access your website, create and account, login, and change the user_id until they get admin permission. Not good*
+
+### Search Sorting System
+
+![Flowchart_2](/assets/documentation/Flowchart_2.png)
+
+**Fig.8** *Here is a flowchart describing the process of searching and sorting the posts. The user can search by title, tag author, or content. Also it can be sorted by popularity (all times, in the last month, last day...), by the newest and randomly.*
+
+
+
+
+## Test Plan
+
+| Type | Description | Process | Anticipated Outcome |
+| ---- | ----------- | ------- | ------------------- |
+|      |             |         |                     |
+|      |             |         |                     |
+|      |             |         |                     |
 
 
 

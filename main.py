@@ -175,7 +175,6 @@ def search():
     search = request.args.get('search')
     if search is None:
         search = ''
-        print("Searched nothing")
 
     sort = request.args.get('sort')
     if sort is None:
@@ -199,8 +198,6 @@ def search():
     posts = db.search_posts(search, sort, time, quantity)
     db.close()
     print("SEARCH: ", search)
-    for post in posts:
-        print(post)
     return render_template('search.html', search=search, posts=posts)
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
