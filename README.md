@@ -113,7 +113,7 @@ ADD TABLE
 
 ## Development
 
-### Modals
+### Modals [Success criteria:6]
 
 Sometimes in your program you need to display some additional information, and because there is a strong link between the current page and the information you want to display you don't want to redirect the user to another page. In this case, you can use a modal. A modal is a small window that pops up on top of the current page. It can contain any information you want, and it can be closed by the user, and doesn't involve any redirection / page refresh.
 
@@ -156,7 +156,7 @@ On page load, the modal is hidden, but when the user clicks on the button, the m
 ![Modal](assets/documentation/website_screenshots/register_modal.png)
 As you can see it's very customizable, we can add headers, footers, and even a form.
 
-### Cards
+### Cards [Success criteria:6]
 Bootstrap's cards are a versatile (logins, elements, items...) and customizable (images, headers, footers...) tool that can be used to create visually appealing content containers that are consistent across multiple devices, screen sizes, and browsers. 
 
 Here is an example of how we could use it in our project:
@@ -173,7 +173,7 @@ Here is an example of how we could use it in our project:
 ![Card](assets/documentation/website_screenshots/login_card.png)
 You can see here it, certified highly customizable.
 
-### Bootstrap 5
+### Bootstrap 5 [Success criteria:6]
 Bootstrap 5 offers a mobile-first approach, improved customization, performance, and accessibility, with a large community for support and resources. Instead of having to use custom styles for every single element available, now I just import the library in three lines of code, mentioning the type of the object in the class and that it, no more custom styles. 
 
 ```html
@@ -189,7 +189,7 @@ Example of how to use it on a button:
 ```
 I just need to add the class "btn" and the type of the button, in this case "btn-primary" and I get a nice and working button.
 
-### Jinja2
+### Jinja2 [Success criteria:5]
 Jinja 2 provides template inheritance (more on this later), conditional statements, looping constructs, and filters in html templates. Lets take example with the posts page, as described in one of my success criteria we need moderation, but not every one needs moderation, so we need to check if the user is an admin or not. We could do this with a simple if statement:
 ```html
 {% if user.role == "admin" %}
@@ -231,7 +231,7 @@ There is also a lot of filters, to make the the datetime looking better in our p
 {{post.date|date}}
 ```
 
-### JWT Tokens & Cookies
+### JWT Tokens & Cookies [Success criteria:2]
 Ok, lets pause the graphical part, how do we add security to our website? One way are cookies with a purpose of identification. How? Here is a simple example
 ```python
 session['token'] = user_id
@@ -277,7 +277,7 @@ And finally removing the token after the user logs out:
 session.pop('token', None)
 ```
 
-### Headers and Navbar
+### Headers and Navbar [Success criteria:6]
 The header is the first thing you see when you open a website, it's the first impression. It's important to make it look good, and very usable. Also the header is the same for all the pages, helping the user to locate himself. Also giving the user a complete new page at every new page is not a good idea, it's better to keep the user on the same page and just change the content. This is called Single Page Application (SPA), and I tried to implement if, but now only the index is a bit SPA but there is still some other pages.
 
 Here is the header:
@@ -344,8 +344,67 @@ The navbar is the same as the header but without the search bar and the profile 
 ```
 ![Navbar](assets/documentation/website_screenshots/navbar.png)
 
+### Base Template(Pattern Recognition/Generalization/Abstraction)
+As presented before, my website has, headers, navbar, bootstrap defined in the head, and having to constantly copy and paste the same code over and over again is not a good idea, especially when you change elements of it you need to change it in every page.
+
+To avoid this kind of problems, jinja2 comes to the rescue. Jinja2 has a template engine for python, it allows you to define a template and then use it in other pages. For example i created the base.html file to act as a base:
+```html
+<!DOCTYPE html>
+<!-- This is starting the html file, useful for the browser to know what to do with the file -->
+<html lang="en">
+<!-- This is the language of the page, it's useful for the browser to know how to read the page -->
+<head>
+  <title>Welcome {{ username }}</title>
+  <!-- This is the title of the page, it's the name you see in the bar with all the websites open -->
+  <meta charset="utf-8">
+    <!-- This is the encoding of the page, it's useful for the browser to know how to read the page -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- This is the viewport of the page, for multi device support -->
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Importing the bootstrap scripts -->
+  
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <!-- Importing my custom made scripts -->
+  <style>
+    .custom-primary-bg {
+      background-color: #FFD166;
+    }
+
+    .custom-secondary-bg {
+      background-color: #003566;
+    }
+  </style>
+  <!-- Custom made colors so when I change them I only need to change them here -->
+
+</head>
+<body>
+<!-- ALERT Flash Box -->
+    <header>
+        <!-- Table Header -->
+    </header>
+            <aside>
+                <!-- Table Colomn Names -->
+            </aside>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+```
+*As you can see here here is my base code, when you see a comment without code above it, it means that I removed the code and replaced it with a comment.*
 
 
+Then I created a file called index.html and I used the base.html file as a base:
+```html
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Add the page code here -->
+{% endblock %}
+```
 
 
 
