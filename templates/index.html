@@ -1,105 +1,109 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <main class="col overflow-auto h-100">
-        <div class="bg-light border rounded-3 p-3">
-            <h2>Main</h2>
-            <p>Hello and welcome {{ username }} to the next level of impersonation, masquerade, simulation, mimicry, imitation, delinquency, illegality, speculation and lawbreaking in Isak</p>
+<main class="col overflow-auto h-100">
+    <div class="bg-light border rounded-3 p-3">
+        <h2>Main</h2>
+        <p>Hello and welcome {{ username }} to the next level of impersonation, masquerade, simulation, mimicry,
+            imitation, delinquency, illegality, speculation and lawbreaking in Isak</p>
+    </div>
+    <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; gap: 1%;min-height: 200px;">
+        <div class="bg-light border rounded-3 p-3" style="flex: 0 0 74%;">
+            <h3>New Post</h3>
+            <form method="POST" action="/add" enctype="multipart/form-data">
+                <div class="form-floating mb-3">
+                    <input type="text" id="title" name="title" class="form-control" id="floatingInput"
+                        placeholder="Example" required>
+                    <label for="floatingInput">Title</label>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">#</span>
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags (separate by comma)"
+                        aria-label="Tags (separate by space)" aria-describedby="basic-addon1">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content:</label>
+                    <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="file" class="form-label">Files:</label>
+                    <input type="file" class="form-control" id="file" name="file">
+                </div>
+                <button type="submit" class="btn custom-primary-bg w-100">Post</button>
+            </form>
         </div>
-        <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; gap: 1%;min-height: 200px;">
-            <div class="bg-light border rounded-3 p-3" style="flex: 0 0 74%;">
-                <h3>New Post</h3>
-                <form method="POST" action="/add" enctype="multipart/form-data">
-                    <div class="form-floating mb-3">
-                        <input type="text" id="title" name="title" class="form-control" id="floatingInput" placeholder="Example" required>
-                        <label for="floatingInput">Title</label>
-                        </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">#</span>
-                        <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags (separate by comma)" aria-label="Tags (separate by space)" aria-describedby="basic-addon1">
-                        </div>
-                    <div class="mb-3">
-                        <label for="content" class="form-label">Content:</label>
-                        <textarea class="form-control" id="content" name="content" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="file" class="form-label">Files:</label>
-                        <input type="file" class="form-control" id="file" name="file">
-                    </div>
-                    <button type="submit" class="btn custom-primary-bg w-100">Post</button>
-                    </form>
-            </div>
-            <div class="bg-light border rounded-3 p-3" style="flex: 0 0 25%;">
-                <h3>Popular Tags:</h3>
-                <form method="get">
-                    <select class="dropdown" id="Post_first-dropdown" onchange="PostpopulateSecondDropdown()">
-                        <option value="top">Top</option>
-                        <option value="new">New</option>
-                        <option value="random">Random</option>
-                    </select>
-                    
-                    <select id="Post_second-dropdown" onchange="PostredirectforsecondDropdown()">
-                        <option value="all">All time</option>
-                        <option value="hour">Last Hour</option>
-                        <option value="day">Last Day</option>
-                        <option value="week">Last Week</option>
-                        <option value="month">Last Month</option>
-                        <option value="year">Last Year</option>
-    
-                    </select>
-                </form>
-                {% for tag in tags %}
-                <p><a href="search?search={{tag[0]}}" class="">{{ tag[0] }}</a>  <span class="badge bg-primary">{{ tag[1] }}</span></p>
-                {% endfor %}
-            </div>
+        <div class="bg-light border rounded-3 p-3" style="flex: 0 0 25%;">
+            <h3>Popular Tags:</h3>
+            <form method="get">
+                <select class="dropdown" id="Post_first-dropdown" onchange="PostpopulateSecondDropdown()">
+                    <option value="top">Top</option>
+                    <option value="new">New</option>
+                    <option value="random">Random</option>
+                </select>
+
+                <select id="Post_second-dropdown" onchange="PostredirectforsecondDropdown()">
+                    <option value="all">All time</option>
+                    <option value="hour">Last Hour</option>
+                    <option value="day">Last Day</option>
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="year">Last Year</option>
+
+                </select>
+            </form>
+            {% for tag in tags %}
+            <p><a href="search?search={{tag[0]}}" class="">{{ tag[0] }}</a> <span class="badge bg-primary">{{ tag[1]
+                    }}</span></p>
+            {% endfor %}
         </div>
-        <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; min-height: 500px;">
-            <div class="bg-light border rounded-3 p-3" style="flex: 0 0 100%;">
-                <p>
-                    <h3>Posts:</h3>
-                    <form method="get">
-                        <select class="dropdown" id="Table_first-dropdown" onchange="Table_populateSecondDropdown()">
-                            <option value="top">Top</option>
-                            <option value="new">New</option>
-                            <option value="random">Random</option>
-                        </select>
-                        
-                        <select id="Table_second-dropdown" onchange="Table_redirectforsecondDropdown()">
-                            <option value="all">All time</option>
-                            <option value="hour">Last Hour</option>
-                            <option value="day">Last Day</option>
-                            <option value="week">Last Week</option>
-                            <option value="month">Last Month</option>
-                            <option value="year">Last Year</option>
-        
-                        </select>
-                    </form>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Tags</th>
-                            <th scope="col">Content</th>
-                            <th scope="col">Datetime</th>
-    
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for post in posts %}
-                            <tr>
-                                
-                                <th scope="row">{{ post.id }}</th>
-                                <td>{{ post.title }}</td>
-                                <td>{{ post.tags }}</td>
-                                <td>{{ post.content }}</td>
-                                <td>{{ post.datetime }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                        </table>
-                </p>
-            </div>
+    </div>
+    <div class="flex-row d-flex flex-wrap" style="margin-top: 10px; min-height: 500px;">
+        <div class="bg-light border rounded-3 p-3" style="flex: 0 0 100%;">
+            <p>
+            <h3>Posts:</h3>
+            <form method="get">
+                <select class="dropdown" id="Table_first-dropdown" onchange="Table_populateSecondDropdown()">
+                    <option value="top">Top</option>
+                    <option value="new">New</option>
+                    <option value="random">Random</option>
+                </select>
+
+                <select id="Table_second-dropdown" onchange="Table_redirectforsecondDropdown()">
+                    <option value="all">All time</option>
+                    <option value="hour">Last Hour</option>
+                    <option value="day">Last Day</option>
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="year">Last Year</option>
+
+                </select>
+            </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Datetime</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr>
+
+                        <th scope="row">{{ post.id }}</th>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.tags }}</td>
+                        <td>{{ post.content }}</td>
+                        <td>{{ post.datetime }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </p>
         </div>
-    </main>
+    </div>
+</main>
 {% endblock %}
