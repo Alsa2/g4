@@ -158,7 +158,6 @@ def add():
             flash(('You need to login first', 'danger'))
             return redirect(url_for('login'))
         file = request.files['file']
-        filename = ''
         if file.filename != '':
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))

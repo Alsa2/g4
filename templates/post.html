@@ -12,7 +12,7 @@
             {% if post.file_names %}
             <hr/>
             <h5>File:</h5>
-            <p><a href="/file/{{post.id}}">{{post.file_names}}</a>
+            <p><a href="/file/{{post.id}}" download>{{post.file_names}}</a>
             <img src="/file/{{post.id}}" alt="" style="max-width: 30%; max-height: 30%;"></p>
             {% endif %}
         </div>

@@ -10,7 +10,7 @@ Link:
 
 ## Problem definition
 
-I am a student of a international IB high school in Japan. Like IB and many other educational systems a lot of it's content is private or only available with a subscription. The problem is that the subscription are extremely expensive and in my opinion are exploiting the students desperation to improve in their subjects. Also often, when a student finds a good resource their share them to their close friends, leaving the rest of the class out of the loop. Additionally some times teachers know where to find good resources but cannot share them because of the content being mostly pirated. Other platforms (DO I GIVE NAMES) are prohibiting pirated content so there is no place for students to share resources. Additionally when you occasionally find some pirated content that escaped the nets it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate.
+I am a student of a international IB high school in Japan. Like IB and many other educational systems a lot of it's content is private or only available with a subscription. The problem is that the subscription are extremely expensive and in my opinion are exploiting the students desperation to improve in their subjects. Also often, when a student finds a good resource their share them to their close friends, leaving the rest of the class out of the loop. Additionally some times teachers know where to find good resources but cannot share them because of the content being mostly pirated. Other platforms (DO I GIVE NAMES) are prohibiting pirated content so there is no place for students to share resources. Additionally when you occasionally find some pirated content that escaped the nets it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate. Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system. In addition some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform. Finally, the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government.
 
 
 ## Proposed solution
@@ -21,7 +21,7 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Success criteria
 
-1. The platform allows students to easily post educational resources, such as study materials, files, and helpful websites.
+1. [issue tackled: ""]The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. ##COMPLETE
 2. The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data.
 3. The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content. 
 4. Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study.
@@ -208,6 +208,7 @@ Another example is loops, when we load the post page we need to show many posts 
                 </tr>
             </thead>
             <tbody>
+                <!-- Will loop for all the posts -->
                 {% for post in posts %}
                 <tr>
                     <th scope="row">{{ post.id }}</th>
@@ -215,8 +216,9 @@ Another example is loops, when we load the post page we need to show many posts 
                     <td>{{ post.tags }}</td>
                     <td>{{ post.content }}</td>
                     <td>{{ post.datetime }}</td>
-                    <td
-                    <button type="button" class="btn" style="background-color: #003566;color: white;" onclick="window.location.href='/post/{{post.id}}'">View</button>
+
+                    <!-- Adding a button for viewing the post -->
+                    <td><button type="button" class="btn" style="background-color: #003566;color: white;" onclick="window.location.href='/post/{{post.id}}'">View</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -405,6 +407,181 @@ Then I created a file called index.html and I used the base.html file as a base:
 <!-- Add the page code here -->
 {% endblock %}
 ```
+
+### File upload [Success criteria:5]
+The criteria 1 states that the users need to be able to upload educational resources, so file upload was necessary, especially for piracy where you need to upload torrents.
+
+I used the flask-wtf library to create a form to upload files, here is the code:
+```python
+from flask import send_from_directory
+
+# this one checks if the file has any potential malware in it and filters it out
+from werkzeug.utils import secure_filename
+
+#gets the file argument from the post form
+file = request.files['file']
+
+#checks if the file is empty
+if file.filename != '':
+    #uses the above explained malware filter
+    filename = secure_filename(file.filename)
+    #saves the file in the uploads folder
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+#adds the filename to the database so we can know which file to display on a post
+db.add_post(..., filename)
+```
+
+Also for the html we need to special arguments to the form to make it work:
+```html
+<form method="POST" action="/add" enctype="multipart/form-data">
+    <!-- other informartion like post title, content... -->
+    <label for="file" class="form-label">Files:</label>
+    <input type="file" class="form-control" id="file" name="file">
+    <!-- submit button and the rest -->
+</form>
+```
+
+### File display [Success criteria:5]
+Just uploading the files will not help, you need a way of displaying them. Si created the /file/post_id link:
+```python
+@app.route('/file/<post_id>')
+def file(post_id):
+    #we need to get the post from the post_id to get the file name
+    db = DatabaseHandler()
+    post = db.get_post_by_id(post_id)
+    db.close()
+    #and we return the file from the uploads folder with the same file name as the one in the database post
+    return send_from_directory(app.config['UPLOAD_FOLDER'], post[0].file_names)
+```
+
+One way of using it is to create a link to the file in the post:
+```html
+<img src="/file/{{post.id}}" alt="" style="max-width: 30%; max-height: 30%;">
+```
+Using the img will display the image in the post, but if you want to download the file you can use the a tag:
+```html
+<a href="/file/{{post.id}}" download>Download</a>
+```
+
+### Post rating [Success criteria:3]
+
+To prevent users from posting malicious content and users seeing it as a useful resource, I added a rating system to the posts, so users can rate the post and the post with the highest rating will be displayed first, avoiding malicious content to be displayed first and being able to build up trust in your posts.
+
+For this when we displays the posts I am adding a rating column to the posts:
+```html
+<h4>Rating:</h4>
+<p>{{ post.rating }} points.</p>
+<h4>Vote</h4>
+<div class="btn-group custom-primary-bg" role="group" aria-label="Basic example">
+    <a href="/vote/{{post.id}}?task=upvote"><button type="button" class="btn btn-secondary custom-primary-bg"><i class="bi bi-hand-thumbs-up"></i>+</button></a>
+    <a href="/vote/{{post.id}}?task=downvote"><button type="button" class="btn btn-secondary custom-primary-bg"><i class="bi bi-hand-thumbs-down"></i>-</button></a>
+</div>
+```
+So when they click on the upvote or downvote button it will send a get request to the /vote/post_id link:
+```python
+@app.route('/vote/<post_id>')
+def upvote(post_id):
+    # Checking the token
+
+    db = DatabaseHandler()
+    task = request.args.get('task')
+    db.vote_post(post_id, task)
+    print(task)
+    db.close()
+    return redirect('/post/' + post_id)
+```
+
+### Post Sorting [Success criteria:4]
+Firstly I added the opportunity to add tags when you add a post, and on the main page you can see the tags used by the posts and their count:
+
+![Sorting](assets/documentation/website_screenshots/sorting_dropdowns.png)
+
+```html
+{% for tag in tags %}
+<p><a href="search?search={{tag[0]}}" class="">{{ tag[0] }}</a><!-- The name with a link to search --> <span class="badge bg-primary">{{ tag[1]}}</span></p> <!-- to see the amount of time the tag was used -->
+{% endfor %}
+```
+When you click on the tag it will send a get request to the /search link automatically:
+
+Additionally I added dropdowns to the main page to sort the posts and tags by:
+```html
+                <select class="dropdown" id="Post_first-dropdown" onchange="PostpopulateSecondDropdown()">
+                    <option value="top">Top</option>
+                    <option value="new">New</option>
+                    <option value="random">Random</option>
+                </select>
+
+                <select id="Post_second-dropdown" onchange="PostredirectforsecondDropdown()">
+                    <option value="all">All time</option>
+                    <option value="hour">Last Hour</option>
+                    <option value="day">Last Day</option>
+                    <option value="week">Last Week</option>
+                    <option value="month">Last Month</option>
+                    <option value="year">Last Year</option>
+                </select>
+```
+The problem is that if I click on random or new I dont want the second dropdown to be there, so I used javascript to hide it:
+```javascript
+function PostpopulateSecondDropdown() {
+  var firstDropdown = document.getElementById("Post_first-dropdown");
+  var secondDropdown = document.getElementById("Post_second-dropdown");
+
+  // Clear the options in the second dropdown
+  secondDropdown.innerHTML = "";
+
+  // Get the selected value from the first dropdown
+  var selectedValue = firstDropdown.value;
+
+  // Create options for the second dropdown based on the selected value
+  if (selectedValue === "top") {
+    var all = document.createElement("option");
+    all.value = "all";
+    all.text = "All Time";
+    secondDropdown.add(all);
+
+    // All the other options for time...
+  }
+
+  // Hide/show the second dropdown based on the selected value
+  if (selectedValue === "new") {
+    window.location.href = "/?post_category=new";
+    secondDropdown.style.display = "none";
+    // Hide the second dropdown and redirect to to the appropriate sorting
+  } else if (selectedValue === "random") {
+    window.location.href = "/?post_category=random";
+    secondDropdown.style.display = "none";
+    // Hide the second dropdown and redirect to to the appropriate sorting
+  } else {
+    secondDropdown.style.display = "block";
+    // This meand that top was selected, so it needs to show the second dropdown
+  }
+}
+```
+Same thing will happen with the PostredirectforsecondDropdown(), but this time it will redirect to the appropriate time and sorting.
+
+Also you need to grab the sorting and time from the url so the appropriate dropdowns are selected:
+```javascript
+function TablesetDropdownValuesFromUrlParams() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const post_category = urlParams.get('table_category');
+  const post_time = urlParams.get('table_time');
+
+  const firstDropdown = document.getElementById('Table_first-dropdown');
+  const secondDropdown = document.getElementById('Table_second-dropdown');
+
+  // Set the selected value of the first dropdown
+  if (post_category === 'top') {
+    firstDropdown.value = 'top';
+  } // All the other options for sorting...
+
+  // Set the selected value of the second dropdown
+  if (post_time === 'all') {
+    secondDropdown.value = 'all';
+  } // All the other options for time...
+}
+```
+
 
 
 
