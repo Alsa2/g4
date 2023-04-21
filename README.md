@@ -21,12 +21,12 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Success criteria
 
-1. The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. [Issue tackled: "when a student finds a good resource their share them to their close friends", "teachers know where to find good resources but cannot share them because of the content being mostly pirated"]
-2. The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. [Issue tackled: "the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government"]
-3. The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content.  [Issue tackled: "Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system"]
-4. Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. [Issue tackled: "very hard to find when searching for a precise topic"]
-5. The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. [Issue tackled: "it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate"]
-6. The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. [Issue tackled: "some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform"]
+1. [Issue tackled: "when a student finds a good resource their share them to their close friends", "teachers know where to find good resources but cannot share them because of the content being mostly pirated"] The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. 
+2. [Issue tackled: "the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government"] The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. 
+3. [Issue tackled: "Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system"] The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content.  
+4. [Issue tackled: "very hard to find when searching for a precise topic"] Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. 
+5. [Issue tackled: "it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate"] The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. 
+6. [Issue tackled: "some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform"] The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. 
 
 # Criteria B: Design
 
@@ -98,11 +98,13 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Test Plan
 
-| Type | Description | Process | Anticipated Outcome |
-| ---- | ----------- | ------- | ------------------- |
-|      |             |         |                     |
-|      |             |         |                     |
-|      |             |         |                     |
+| Type         | Description       | Process                                                      | Anticipated Outcome                                          |
+| ------------ | ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Unit Testing | User Registration | 1. Open Website<br />2. Click on the register button<br />3. Enter username "bob"<br />4. Click Submit<br />5. Insert "bob" in the password field<br />6.  Click Submit<br />7. Insert "bob" in the confirm password field<br />8. Click Submit<br />9. Change username to "bob5"<br />10. Click Submit | A modal will apear, first submit will fail because you need to complete the first password text field. Second submit will also fail because you need both of the passwords fields, not only the first one. The third will also fail and flash the message "Username already taken", because *username is taken*. Finally the last one will work and it should show a succesfuly registered message. |
+| Unit Testing | User Login        | 1. Open Website<br />2. Input bob5 as username<br />3. Input bobby as password<br />4. Click Submit<br />5. Change password text field to bob<br />6. Click Submit | First submit will fail because the password is incorect, but the second one will succed because the password is correct. It will then redirect to the index page. |
+| Unit Testing | Logout            | 1. Open Website<br />2. Login as prescribed in the test above<br />3. Click logout one the dropdown in the right top header bar<br />4. Reload page and go to / | When the user will tro to go to the index page he will be redirected to login because the token has beed deleted during the logout. |
+|              |                   |                                                              |                                                              |
+|              |                   |                                                              |                                                              |
 
 # Criteria C: Development
 
@@ -137,19 +139,18 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## References
 
-### Bootstrap 5
+### [Github Copilot](https://copilot.github.com/)
+GitHub Copilot is an AI-powered code completion tool developed by OpenAI (the new copilot X implementation) and GitHub. It uses machine learning to suggest code snippets and functions to developers as they write code, increasing dramatically the speed of development.
 
-### Github Copilot
+### [ChatGPT](https:/chat.openai.com/)
+Some times developers are lazy to search up documentation, or stack overflow, So they just ask GPT to do it for them. This is a chatbot that uses GPT-3 to answer the questions the developers asks. It can also correct itself when the wrong answer is given so you have multiple solution when a problem occurs.
 
-### ChatGPT
+### [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+I mainly used the documentation to see all the features available in bootstrap 5 and getting inspiration of how to use them. Usually GPT was trained enough to respond to my problems without having the search in the documentation.
 
-
-
-
+***Disclaimer*** *No part of this program include code blocks directly generated by Github Copilot or ChatGPT*
 
 ## Development
-
-
 
 ### Tor Network - Hidden Service [Success criteria:2]
 
@@ -636,9 +637,9 @@ function TablesetDropdownValuesFromUrlParams() {
 
 
 
-[^1]: https://stackshare.io/stackups/flask-vs-nginx
-[^2]: https://www.infoworld.com/article/3331923/why-you-should-use-sqlite.html
-[^3]: https://www.jadeglobal.com/blog/6-reasons-use-bootstrap-5-better-ui-development
+[^1]: Flask vs Nginx https://stackshare.io/stackups/flask-vs-nginx
+[^2]: The superiority of SQLite https://www.infoworld.com/article/3331923/why-you-should-use-sqlite.html
+[^3]: Why is bootstrap betterhttps://www.jadeglobal.com/blog/6-reasons-use-bootstrap-5-better-ui-development
 [^4]: The Tor Project. (n.d.). Retrieved from https://www.torproject.org/ 
 [^5]: The legend Tom Scott https://youtu.be/-5wpm-gesOY
 [^6]: Tor Network diagram https://bit.ly/41oG4KE
