@@ -10,7 +10,7 @@ Link:
 
 ## Problem definition
 
-I am a student of a international IB high school in Japan. Like IB and many other educational systems a lot of it's content is private or only available with a subscription. The problem is that the subscription are extremely expensive and in my opinion are exploiting the students desperation to improve in their subjects. Also often, when a student finds a good resource their share them to their close friends, leaving the rest of the class out of the loop. Additionally some times teachers know where to find good resources but cannot share them because of the content being mostly pirated. Other platforms (DO I GIVE NAMES) are prohibiting pirated content so there is no place for students to share resources. Additionally when you occasionally find some pirated content that escaped the nets it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate. Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system. In addition some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform. Finally, the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government.
+I am a student of a international IB high school in Japan. Like IB and many other educational systems a lot of it's content is private or only available with a subscription. The problem is that the subscription are extremely expensive and in my opinion are exploiting the students desperation to improve in their subjects. Also often, when a student finds a good resource their share them to their close friends, leaving the rest of the class out of the loop. Additionally some times teachers know where to find good resources but cannot share them because of the content being mostly pirated. Other platforms (DO I GIVE NAMES) are prohibiting pirated content so there is no place for students to share resources, or very hard to find when searching for a precise topic. Additionally when you occasionally find some pirated content that escaped the nets, it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate. Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system. In addition some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform. Finally, the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government.
 
 
 ## Proposed solution
@@ -21,12 +21,12 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Success criteria
 
-1. [issue tackled: ""]The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. ##COMPLETE
-2. The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data.
-3. The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content. 
-4. Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study.
-5. The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed.
-6. The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. ##DO I KEEP IT?
+1. The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. [Issue tackled: "when a student finds a good resource their share them to their close friends", "teachers know where to find good resources but cannot share them because of the content being mostly pirated"]
+2. The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. [Issue tackled: "the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government"]
+3. The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content.  [Issue tackled: "Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system"]
+4. Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. [Issue tackled: "very hard to find when searching for a precise topic"]
+5. The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. [Issue tackled: "it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate"]
+6. The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. [Issue tackled: "some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform"]
 
 # Criteria B: Design
 
@@ -107,11 +107,62 @@ Considering the clients requirements there is a strong need for a platform where
 # Criteria C: Development
 
 ## Existing Tools
-ADD TABLE
+| Libraries      |
+| :------------- |
+| Flask          |
+| Werkzeug.utils |
+| os             |
+| Jose           |
+| Datetime       |
+| SQLalchemy     |
+| Passlib        |
+| Random         |
+
+
 
 ## List of Techniques
 
+- Object-Oriented Programming(OOP)
+- Object Relation Mapping(ORM): SQLAlchemy
+- Flask Library/Routes
+- Javascript/Python inside HTML
+- CSS Styling
+- If statements
+- For loops
+- Password Hashing
+- Token-based JWT authentication
+- Interacting with Databases
+- Arrays and Lists
+- DRY Programming Technique
+
+## References
+
+### Bootstrap 5
+
+### Github Copilot
+
+### ChatGPT
+
+
+
+
+
 ## Development
+
+
+
+### Tor Network - Hidden Service [Success criteria:2]
+
+The Tor network is a network of virtual tunnels that allows people and groups to improve their privacy and security on the Internet. To represent it here is a diagram:
+![Tor-network](assets/documentation/tor-network.jpg)[^6]
+You can image it as a concatenation of vpn tunnels, but with a added encryption on each bridge, so you cannot trace back the initial connection. 99% anonymous (browser can be hacked, you can still compare the incoming and exiting encrypted traffic, and if the the connection from the exit-node to the public server is not encrypted the imputed information's can be traced back to the user.)
+
+One way to solve this is to use a hidden service instead of the standalone web server:
+![Hidden-Service](assets/documentation/hidden-services.jpg)[^7]
+Comparing the traffic is now impossible because there is no exit node, you are accessing a server inside the network. Also its fully encrypted from every point of view. One advantage of this is that you are not sharing the ip of the server but only an onion link, which serves as a rendezvous address, preventing IB (or anyone) from reporting me to AWS.
+Imagine the onion key as a address to the server IP1, IP2, IP3 and IP4, then you browser will select one of them, here RP with the connection E. After jumping on three bridges to the rendezvous point the hidden server will jump two bridges and arrive at the rendezvous point. Successful connection.
+
+
 
 ### Modals [Success criteria:6]
 
@@ -492,7 +543,7 @@ def upvote(post_id):
     return redirect('/post/' + post_id)
 ```
 
-### Post Sorting [Success criteria:4]
+### Post Sorting (Algorithms) [Success criteria:4]
 Firstly I added the opportunity to add tags when you add a post, and on the main page you can see the tags used by the posts and their count:
 
 ![Sorting](assets/documentation/website_screenshots/sorting_dropdowns.png)
@@ -590,3 +641,5 @@ function TablesetDropdownValuesFromUrlParams() {
 [^3]: https://www.jadeglobal.com/blog/6-reasons-use-bootstrap-5-better-ui-development
 [^4]: The Tor Project. (n.d.). Retrieved from https://www.torproject.org/ 
 [^5]: The legend Tom Scott https://youtu.be/-5wpm-gesOY
+[^6]: Tor Network diagram https://bit.ly/41oG4KE
+[^7]: Hidden Services in the Tor Network https://bit.ly/3UQQJvn
