@@ -73,6 +73,7 @@ Considering the clients requirements there is a strong need for a platform where
 |         |                                      |                                                              |               |                        |           |
 |         |                                      |                                                              |               |                        |           |
 |         |                                      |                                                              |               |                        |           |
+TODO
 
 ## Flowcharts
 
@@ -105,6 +106,7 @@ Considering the clients requirements there is a strong need for a platform where
 | Unit Testing | Logout            | 1. Open Website<br />2. Login as prescribed in the test above<br />3. Click logout one the dropdown in the right top header bar<br />4. Reload page and go to / | When the user will tro to go to the index page he will be redirected to login because the token has beed deleted during the logout. |
 |              |                   |                                                              |                                                              |
 |              |                   |                                                              |                                                              |
+TODO
 
 # Criteria C: Development
 
@@ -634,7 +636,18 @@ function TablesetDropdownValuesFromUrlParams() {
 }
 ```
 
+# Criteria D: Functionality
+Demonstration Video:
 
+TODO
+
+# Criteria E: Evaluation
+
+## Evaluation by Client
+
+## Evaluation by Peer
+
+## Extensibility
 
 
 [^1]: Flask vs Nginx https://stackshare.io/stackups/flask-vs-nginx
