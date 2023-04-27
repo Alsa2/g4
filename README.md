@@ -4,7 +4,7 @@
 <i>  low poly art of a person working on a computer on the edge of a building with sky scrapper in the night</i> by [DALL·E 2](https://openai.com/product/dall-e-2)
 
 Link:
-2dwfg6zxrbkyu3f27z76n6widmc4sp3zpt7olzzozqzwchgqnt5j7nad.onion
+[2dwfg6zxrbkyu3f27z76n6widmc4sp3zpt7olzzozqzwchgqnt5j7nad.onion](2dwfg6zxrbkyu3f27z76n6widmc4sp3zpt7olzzozqzwchgqnt5j7nad.onion)
 
 # Criteria A: Planning
 
@@ -21,12 +21,14 @@ Considering the clients requirements there is a strong need for a platform where
 
 ## Success criteria
 
-1. [Issue tackled: "when a student finds a good resource their share them to their close friends", "teachers know where to find good resources but cannot share them because of the content being mostly pirated"] The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. 
+1. [Issue tackled: "when a student finds a good resource their share them to their close friends", "teachers know where to find good resources but cannot share them because of the content being mostly pirated"] The platform allows students to post educational resources, such as study materials, files, and helpful websites. 
 2. [Issue tackled: "the platform should be anonymous and private, so that students can share resources without fear of being tracked down by the school or the government"] The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. 
 3. [Issue tackled: "Building reputation is not possible on most of the anonymous platforms, because of the lack of a rating system"] The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content.  
 4. [Issue tackled: "very hard to find when searching for a precise topic"] Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. 
-5. [Issue tackled: "it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate"] The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. 
-6. [Issue tackled: "some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform"] The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. 
+5. [Issue tackled: "it is probably malware or a virus, making trust worthy and reliable content even harder to find and moderate"] The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed by the administrators. 
+6. [Issue tackled: "some users searching for resources are not very tech savvy and are not able to find the resources they need, increasing the need to a easy to use platform"] The platform is easy to use and navigate, with a clean and intuitive interface that makes it rapidly for users to find the information they need and perform common tasks, such as posting and searching for resources. 
+
+[981 Words]
 
 # Criteria B: Design
 
@@ -88,8 +90,8 @@ Considering the clients requirements there is a strong need for a platform where
 | 19 | Development: Added search page | Now you can search up your post based on author, title, tag, content, file | 50min | 9 April | C |
 | 20 | Development: Added sorting system to search | Just copied the code from tags and added it to the search page | 20min | 9 April | C |
 | 21 | Development: Adding View post | Now you can click on view after you search for an article and you can upvote it, down vote it, see and download the files and if you own the post or you are admin you can delete it | 40min | 10 April | C |
-|22|Implementation: Evaluation by client|To have the website evaluated by the client and the subsequent evidence documented|10min|10 April|E|
-|23|Beta Testing: Evaluation by peer|To have the website evaluated by a peer and the subsequent evidence documented|2h|10 April|E|
+| 22 | Beta Testing: Evaluation by peer | To have the website evaluated by a peer and the subsequent evidence documented | 2h | 10 April | E |
+|23|Implementation: Evaluation by client|To have the website evaluated by the client and the subsequent evidence documented|10min|10 April|E|
 |24|Development: Cleaning up Code|Removing unused code, optimizing it, adding comments|20min|10 April|C|
 |26|Planning: Creating System Diagram|System diagram finished|20min|Apr 13|B|
 |27|Planning: Creating UML Diagram|UML diagram finished|20min|Apr 13|B|
@@ -162,6 +164,7 @@ Considering the clients requirements there is a strong need for a platform where
 - Token-based JWT authentication
 - Interacting with Databases
 - Arrays and Lists
+- Peer to Peer Networks
 - DRY Programming Technique
 
 ## References
@@ -661,6 +664,8 @@ function TablesetDropdownValuesFromUrlParams() {
 }
 ```
 
+[3158 Words]
+
 # Criteria D: Functionality
 
 Demonstration Video:
@@ -670,32 +675,50 @@ https://drive.google.com/drive/folders/1vlHq4M10VcsPA-ADXcZQF5780pmai_XB?usp=sha
 
 | Success Criteria                                             | Met? | Description                                                  |
 | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ |
-| The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. | [X]  | Users can create post, whith text and files as content.      |
-| The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. | [X]  | Platform is hosted on the tor network as a hidden service and has strong security features (JWT token auth) |
-| The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content. | [X]  | Platform has the option of upvoting and downvoting content   |
-| Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. | [X]  | Possible sorting by tag, popularity and date                 |
-| The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. | [X]  | When admin or proprietary of a post, deletion is possible    |
-| The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. | [X]  | Testing of the platform has been conducted and the results show that  users find the platform easy to use and navigate, then it can be said  that the platform has met the usability criterion successfully. |
+| The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. | Yes  | Users can create post, whith text and files as content.      |
+| The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. | Yes  | Platform is hosted on the tor network as a hidden service and has strong security features (JWT token auth) |
+| The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content. | Yes  | Platform has the option of upvoting and downvoting content   |
+| Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. | Yes  | Possible sorting by tag, popularity and date                 |
+| The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. | Yes  | When admin or proprietary of a post, deletion is possible    |
+| The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. | Yes  | Testing of the platform has been conducted and the results show that  users find the platform easy to use and navigate, then it can be said  that the platform has met the usability criterion successfully. |
 
 
 
 ## Evaluation by Client
 
-Client Satisfied
+Good platforms, fulfills the requirements
 
-## Evaluation by Peer
-
-good
-*Bernard*
-
-## Extensibility
-
+Possible Expansion:
 - Adding Comments system (better for discussing a subject)
 - Profile Page with change password and possibility of profile pictures (more appealing interfaces)
 - Options to show files in the in the browser for videos, mp3... [Other than images] (more post option)
 - Add some nice stuff from bootstrap [graphs, progression bars...] (more appealing interfaces)
 
+## Evaluation by Peer
 
+```text
+Subject: Thank you for creating an amazing platform!
+
+Dear developer,
+
+I just wanted to take a moment to express my appreciation for the incredible platform that you have created. I have been using it for a while now, and I must say that it fulfills all the criteria that I was looking for.
+
+Firstly, the ability to share educational resources is incredibly valuable, and it has helped me and my friends immensely. I appreciate that the platform allows students to share resources without the fear of being tracked down by the school or the government, and the robust security measures in place make me feel safe and secure.
+
+The post rating system is also a great feature, as it allows me to quickly identify the most helpful and relevant content. Additionally, the sorting options make it easy for me to find the information I need, and I love that the platform is moderated to ensure that inappropriate content is removed promptly.
+
+Finally, I appreciate how easy the platform is to use. The clean and intuitive interface makes it simple for me to find what I'm looking for and contribute to the platform.
+
+Overall, I am thoroughly satisfied with the platform and wanted to thank you for all your hard work in creating it. Keep up the excellent work!
+
+Best regards,
+
+Bernard
+```
+
+[571 Words]
+
+# Appendix
 [^1]: Flask vs Nginx https://stackshare.io/stackups/flask-vs-nginx
 [^2]: The superiority of SQLite https://www.infoworld.com/article/3331923/why-you-should-use-sqlite.html
 [^3]: Why is bootstrap betterhttps://www.jadeglobal.com/blog/6-reasons-use-bootstrap-5-better-ui-development
