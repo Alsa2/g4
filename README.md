@@ -68,12 +68,12 @@ Considering the clients requirements there is a strong need for a platform where
 
 | Task No | Planned Action                       | Planned Outcome                                              | Time estimate | Target completion date | Criterion |
 | ------- | ------------------------------------ | ------------------------------------------------------------ | ------------- | ---------------------- | --------- |
-|         | Planning: First Meeting with client  | Start collecting the context of the problem and research on current solutions | 5min          |                        | A         |
-|         | Planning: Second Meeting with client | Defining problem, proposed solution, tools needed,  and the clients requirements |               |                        |           |
+| 1 | Planning: First Meeting with client  | Start collecting the context of the problem and research on current solutions | 5min          |                        | A         |
+| 2 | Planning: Second Meeting with client | Defining problem, proposed solution, tools needed,  and the clients requirements |               |                        |           |
 |         |                                      |                                                              |               |                        |           |
 |         |                                      |                                                              |               |                        |           |
 |         |                                      |                                                              |               |                        |           |
-TODO
+|TODO||||||
 
 ## Flowcharts
 
@@ -104,9 +104,13 @@ TODO
 | Unit Testing | User Registration | 1. Open Website<br />2. Click on the register button<br />3. Enter username "bob"<br />4. Click Submit<br />5. Insert "bob" in the password field<br />6.  Click Submit<br />7. Insert "bob" in the confirm password field<br />8. Click Submit<br />9. Change username to "bob5"<br />10. Click Submit | A modal will apear, first submit will fail because you need to complete the first password text field. Second submit will also fail because you need both of the passwords fields, not only the first one. The third will also fail and flash the message "Username already taken", because *username is taken*. Finally the last one will work and it should show a succesfuly registered message. |
 | Unit Testing | User Login        | 1. Open Website<br />2. Input bob5 as username<br />3. Input bobby as password<br />4. Click Submit<br />5. Change password text field to bob<br />6. Click Submit | First submit will fail because the password is incorect, but the second one will succed because the password is correct. It will then redirect to the index page. |
 | Unit Testing | Logout            | 1. Open Website<br />2. Login as prescribed in the test above<br />3. Click logout one the dropdown in the right top header bar<br />4. Reload page and go to / | When the user will tro to go to the index page he will be redirected to login because the token has beed deleted during the logout. |
-|              |                   |                                                              |                                                              |
-|              |                   |                                                              |                                                              |
-TODO
+| Unit Testing | Token Security | 1. Open Website | When you will open the website, you will automatically go to the index, but because your token is not valid or you didn't logged in yet it will redirect you to /login, making sure only logged in users can se the index. |
+| Unit Testing | Adding Post | 1. Open Website<br />2. Input bob5 as username<br />3. Input bob as password<br />4. Click Submit<br /><br />5. Click Submit <br />6. Add a title to the New Post Section<br /><br />7. Add some tags to tags<br />8.  Add some text to the content<br /><br />9. Upload your favorite image<br />10. Click Submit | First thing you will do is succesfully login in the website, after that you will try to submit a post without a title, which will not work because the text field title is required. After you add the content and a file you will sucessfully post it. |
+| Intergration Testing | Adding Post / Viewing Post | 1. Same steps as above for the post creation<br />2. Input in the search bar the title of the post created<br />3. Click enter on your keyboard<br />4. Click View on the post you posted | Firstly you will created the post and you will have the same content as the test above. To confirm it you will see the post you can look at the tags bar or under the new post blog where you will see it apperar. Also you can eventually search up the name, title, author, content in the search bar, click view, and see the file you uploaded, and if it's a png it will show it in the browser. |
+| Intergration Testing | Adding Post / Deleting Post | 1. Same steps as above for the post creation and viewing<br />2. Click on the trash button on the left | As before you will create and see the post. Once you will click on the delete button you will be redirected to the index page, and you will see the post dissapear. |
+|Unit Testing|Adding review|1. Same steps as above for the creation of the post and viewing it<br />2. Click on the + thumbs up button one time<br />3. Click on the - thumbs down button one time<br />4. Click on the + thumbs up button one time|You will first see the rating going up to +1, then to 0 because of the dislike, then back to one because of the like.|
+|Intergration Testing|Sorting Properly|1. Same steps as above for the creation of the post and viewing it and adding a review<br />2. Go back to the index by clicking on home in the navbar<br />Change the sort tag to top day|As before you will create, see the post and add a rating. But now when goind back to the index you will see your post go up. If you sort it by today, and assuming nobody has posted a post today with higher rating than yours you will see your tag i the top. Same thing can be applied when searching|
+|Code Review|Reviewing Code|Removing all the unused code, testing code, temporary developper option for debugging and testing, and removing any spagetti|Easy to understand, debug, and reuse code for future developers.|
 
 # Criteria C: Development
 
@@ -637,11 +641,22 @@ function TablesetDropdownValuesFromUrlParams() {
 ```
 
 # Criteria D: Functionality
-Demonstration Video:
 
-TODO
+Demonstration Video:
+https://drive.google.com/drive/folders/1vlHq4M10VcsPA-ADXcZQF5780pmai_XB?usp=sharing
 
 # Criteria E: Evaluation
+
+| Success Criteria                                             | Met? | Description                                                  |
+| ------------------------------------------------------------ | ---- | ------------------------------------------------------------ |
+| The platform allows students to easily post educational resources, such as study materials, files, and helpful websites. | [X]  | Users can create post, whith text and files as content.      |
+| The platform is secure and private, with robust measures in place to protect users' personal information and prevent unauthorized access to the platform's data. | [X]  | Platform is hosted on the tor network as a hidden service and has strong security features (JWT token auth) |
+| The platform includes a post rating system, where users can rate and provide feedback on the quality of shared resources, allowing the community to identify the most helpful and relevant content. | [X]  | Platform has the option of upvoting and downvoting content   |
+| Also the platform offers proper sorting options, such as by subject, topic, popularity, and date, enabling users to quickly and easily find the information they need and stay up-to-date on the latest developments in their fields of study. | [X]  | Possible sorting by tag, popularity and date                 |
+| The platform has a system for moderating content and user behavior to ensure that the platform remains a safe and supportive space for learning and collaboration, and that inappropriate or harmful content is quickly removed. | [X]  | When admin or proprietary of a post, deletion is possible    |
+| The platform is easy to use and navigate, with a clean and intuitive interface that makes it easy for users to find the information they need and perform common tasks, such as posting and searching for resources. | [X]  | Testing of the platform has been conducted and the results show that  users find the platform easy to use and navigate, then it can be said  that the platform has met the usability criterion successfully. |
+
+
 
 ## Evaluation by Client
 
