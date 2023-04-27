@@ -68,12 +68,33 @@ Considering the clients requirements there is a strong need for a platform where
 
 | Task No | Planned Action                       | Planned Outcome                                              | Time estimate | Target completion date | Criterion |
 | ------- | ------------------------------------ | ------------------------------------------------------------ | ------------- | ---------------------- | --------- |
-| 1 | Planning: First Meeting with client  | Start collecting the context of the problem and research on current solutions | 5min          |                        | A         |
-| 2 | Planning: Second Meeting with client | Defining problem, proposed solution, tools needed,  and the clients requirements |               |                        |           |
-|         |                                      |                                                              |               |                        |           |
-|         |                                      |                                                              |               |                        |           |
-|         |                                      |                                                              |               |                        |           |
-|TODO||||||
+| 1 | Planning: First Meeting with client  | Start collecting the context of the problem and research on current solutions | 5min          | 5 April | A         |
+| 2 | Planning: Second Meeting with client | Defining problem, proposed solution, tools needed,  and the clients requirements | 1h | 5 April | A |
+| 4 | Initialising Codebase | Creating the coding environment | 30min | 5 April | B |
+| 5 | Planning: Creating Wireframe | Creation of the wireframe of the main functions | 1h | 5 April | B |
+| 6 | Planning: Third Meeting with client | Confirming that we have the same opinion for the  and wireframes | 10min | 5 April | B |
+| 7 | Planning: Database Shema | Design of the database schema | 20min | 5 April | B |
+| 8 | Development: Crating Database | Creating the database using alchemy, including database handler (db_handler.py) | 30min | 5 April | C |
+| 9 | Development: Creating Basic Endpoints | Creating of the flask application, just bare functionality | 2h | 6 April | C |
+| 10 | Development: Creating Security | Implementing the JTW tokens and the login + register + logout system | 1h | 6 April | C |
+| 11 | Development: Basic Functions | Added post and view fuction the the index page | 30min | 6 April | C |
+| 12 | Development: Adding Bootstrap | Adding bootstrap to the login page | 20min | 9 April | C |
+| 13 | Development: Boostraping the index | Adding bootstrap to the index + header + navbar | 40min | 9 April | C |
+| 14 | Development: Extending Post function | Adding the option of uploading files to the Server | 20min | 9 April | C |
+| 15 | Planning: Forth Meeting with client | Making sure we have the same visions, updated the proposed solution | 10min | 9 April | A |
+| 16 | Development: Added Elements to index | Added the option to show tags on the index page sorted by rating, date, or random | 50min | 9 April | C |
+| 17 | Development: Added Elements to index | Copied the sorting feature from the tags and added it to the show post | 10min | 9 April | C |
+| 18 | Development: Modified index structure | Moved the bootstrap import + header+ navbar + styles to base.html for having cleaner and more responsife code (need to change only one place at the time) | 30min | 9 April | C |
+| 19 | Development: Added search page | Now you can search up your post based on author, title, tag, content, file | 50min | 9 April | C |
+| 20 | Development: Added sorting system to search | Just copied the code from tags and added it to the search page | 20min | 9 April | C |
+| 21 | Development: Adding View post | Now you can click on view after you search for an article and you can upvote it, down vote it, see and download the files and if you own the post or you are admin you can delete it | 40min | 10 April | C |
+|22|Implementation: Evaluation by client|To have the website evaluated by the client and the subsequent evidence documented|10min|10 April|E|
+|23|Beta Testing: Evaluation by peer|To have the website evaluated by a peer and the subsequent evidence documented|2h|10 April|E|
+|24|Development: Cleaning up Code|Removing unused code, optimizing it, adding comments|20min|10 April|C|
+|26|Planning: Creating System Diagram|System diagram finished|20min|Apr 13|B|
+|27|Planning: Creating UML Diagram|UML diagram finished|20min|Apr 13|B|
+|28|Planning: Creating ER Diagram|ER diagram finished|20min|Apr 13|B|
+|29|Planning: Creating Flow Diagrams|Flow diagram finished|20min|Apr 15|B|
 
 ## Flowcharts
 
@@ -660,9 +681,19 @@ https://drive.google.com/drive/folders/1vlHq4M10VcsPA-ADXcZQF5780pmai_XB?usp=sha
 
 ## Evaluation by Client
 
+Client Satisfied
+
 ## Evaluation by Peer
 
+good
+*Bernard*
+
 ## Extensibility
+
+- Adding Comments system (better for discussing a subject)
+- Profile Page with change password and possibility of profile pictures (more appealing interfaces)
+- Options to show files in the in the browser for videos, mp3... [Other than images] (more post option)
+- Add some nice stuff from bootstrap [graphs, progression bars...] (more appealing interfaces)
 
 
 [^1]: Flask vs Nginx https://stackshare.io/stackups/flask-vs-nginx
